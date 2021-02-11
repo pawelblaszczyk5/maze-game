@@ -21,15 +21,13 @@ export const Board = ({maze}: { maze: Maze }) => {
 
     return (
       <div className="Board" style={getGridStyles()}>
-        {maze && maze.map((row) => (
-          <>
-            {row.map((cell) => (
-              <div style={getBorders(cell)} className="BoardCell">
+        {maze && maze.map((row) => {
+          return row.map((cell) => (
+            <div style={getBorders(cell)} key={`${cell.coordinates.y}${cell.coordinates.x}`} className="BoardCell">
 
-              </div>
-            ))}
-          </>
-        ))}
+            </div>
+          ));
+        })}
       </div>
     );
   }
