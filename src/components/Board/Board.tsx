@@ -1,14 +1,7 @@
-import {useEffect, useState} from 'react';
-import {CellCoordinates, generateMaze, Maze, MazeCell} from './maze';
+import {Maze, MazeCell} from '../../helpers/maze/maze';
 import './Board.css';
 
-export const Board = ({width, height, startPoint}: { width: number, height: number, startPoint: CellCoordinates }) => {
-
-    const [maze, setMaze] = useState<Maze>();
-
-    const setUpMaze = () => {
-      setMaze(generateMaze(width, height, startPoint));
-    };
+export const Board = ({maze}: { maze: Maze }) => {
 
     const getBorders = (cell: MazeCell) => {
       return {
@@ -21,12 +14,10 @@ export const Board = ({width, height, startPoint}: { width: number, height: numb
 
     const getGridStyles = () => {
       return {
-        gridTemplateColumns: `repeat(${width},1fr)`,
-        gridTemplateRows: `repeat(${height},1fr)`
+        gridTemplateColumns: `repeat(${maze[0].length},1fr)`,
+        gridTemplateRows: `repeat(${maze.length},1fr)`
       };
     };
-
-    useEffect(setUpMaze, [width, height, startPoint]);
 
     return (
       <div className="Board" style={getGridStyles()}>
