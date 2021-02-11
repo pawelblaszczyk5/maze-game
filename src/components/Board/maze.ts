@@ -35,7 +35,9 @@ const recursiveBackTrack = (previousCell: MazeCell, grid: Maze) => {
   const neighbours = getNeighbours(previousCell, grid).filter(cell => !cell.visited);
   if (neighbours.length) {
     const nextCell = neighbours[Math.floor(Math.random() * neighbours.length)];
-    cellStack.push(nextCell);
+    if (neighbours.length > 1) {
+      cellStack.push(nextCell);
+    }
     carveWalls(previousCell, nextCell);
     recursiveBackTrack(nextCell, grid);
   } else {
