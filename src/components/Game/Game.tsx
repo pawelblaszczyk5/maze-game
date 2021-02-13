@@ -1,12 +1,9 @@
-import {useEffect, useReducer, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {CellCoordinates, generateMaze, Maze} from '../../helpers/maze/maze';
 import {Board} from '../Board/Board';
+import {Keys} from '../Keys/Keys';
 import useEventListener from '@use-it/event-listener';
-
-interface ArrowKey {
-  keySymbol: string;
-  isValid: boolean;
-}
+import {ArrowKey} from '../../helpers/interfaces/ArrowKey';
 
 const arrowKeys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'];
 
@@ -76,7 +73,7 @@ export const Game = () => {
       }
       const newKeysArray = [...keys];
       newKeysArray.unshift(newKey);
-      setKeys(newKeysArray.slice(0, 5));
+      setKeys(newKeysArray);
       console.log(keys);
     }
   };
@@ -91,6 +88,7 @@ export const Game = () => {
   return (
     <div className="Game">
       {maze && <Board maze={maze} player={playerPosition}/>}
+      <Keys keys={keys.slice(0, 5)}/>
     </div>
   );
 };
