@@ -1,12 +1,13 @@
 import {ArrowKey} from '../../helpers/interfaces/ArrowKey';
+import './Keys.css';
 
 export const Keys = ({keys}: { keys: Array<ArrowKey> }) => {
   return (
-    <div>
+    <div className="Keys">
       {keys.map((key, index) => (
-        <p key={index}>
+        <div className="Key" key={index}>
           {key.keySymbol}
-        </p>
+        </div>
       ))}
     </div>
   );

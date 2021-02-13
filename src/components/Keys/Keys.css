@@ -1,0 +1,22 @@
+.Keys {
+  display: flex;
+  height: 100px;
+  margin: 50px 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.Key {
+  width: 70px;
+  height: 70px;
+  margin: 0 10px;
+  border-radius: 20px;
+  background: var(--prussian-blue);
+  box-shadow: 7px 7px 14px #1c283b,
+  -7px -7px 14px #26364f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--grey);
+  font-size: 2em;
+}

@@ -2,10 +2,15 @@
   display: grid;
   width: 600px;
   height: 600px;
+  padding: 30px;
+  border-radius: 50px;
+  background-color: var(--prussian-blue);
+  box-shadow: 41px 41px 82px #1c283b,
+  -41px -41px 82px #26364f;
 }
 
 .BoardCell {
-  border-color: black;
+  border-color: var(--skobeloff);
   border-style: solid;
   border-width: 0;
 }

@@ -6,6 +6,20 @@
   box-sizing: border-box;
 }
 
+:root {
+  --skobeloff: #006466ff;
+  --midnight-green-eagle-green: #065a60ff;
+  --midnight-green-eagle-green-2: #144552ff;
+  --charcoal: #1b3a4bff;
+  --prussian-blue: #212f45ff;
+  --space-cadet: #272640ff;
+  --dark-purple: #312244ff;
+  --russian-violet: #3e1f47ff;
+  --russian-violet-2: #4d194dff;
+  --grey: #C4C4C4;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
+  background-color: var(--prussian-blue);
 }

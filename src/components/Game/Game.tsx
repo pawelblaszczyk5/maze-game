@@ -4,6 +4,7 @@ import {Board} from '../Board/Board';
 import {Keys} from '../Keys/Keys';
 import useEventListener from '@use-it/event-listener';
 import {ArrowKey} from '../../helpers/interfaces/ArrowKey';
+import './Game.css';
 
 const arrowKeys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'];
 
@@ -74,7 +75,6 @@ export const Game = () => {
       const newKeysArray = [...keys];
       newKeysArray.unshift(newKey);
       setKeys(newKeysArray);
-      console.log(keys);
     }
   };
 
@@ -87,8 +87,8 @@ export const Game = () => {
 
   return (
     <div className="Game">
-      {maze && <Board maze={maze} player={playerPosition}/>}
       <Keys keys={keys.slice(0, 5)}/>
+      {maze && <Board maze={maze} player={playerPosition}/>}
     </div>
   );
 };

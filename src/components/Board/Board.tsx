@@ -8,7 +8,7 @@ export const Board = ({maze, player}: { maze: Maze, player: CellCoordinates }) =
       borderLeftWidth: cell.leftWall ? '1px' : undefined,
       borderTopWidth: cell.topWall ? '1px' : undefined,
       borderRightWidth: cell.rightWall ? '1px' : undefined,
-      backgroundColor: (cell.coordinates.x === player.x && cell.coordinates.y === player.y) ? 'yellow' : undefined
+      backgroundColor: (cell.coordinates.x === player.x && cell.coordinates.y === player.y) ? '#c4c4c4' : undefined
     };
   };
 
