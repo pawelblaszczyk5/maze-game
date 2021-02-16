@@ -5,8 +5,8 @@
   padding: 30px;
   border-radius: 50px;
   background-color: var(--prussian-blue);
-  box-shadow: 41px 41px 82px #1c283b,
-  -41px -41px 82px #26364f;
+  box-shadow: 12px 12px 24px #1c283b,
+  -12px -12px 24px #26364f;
 }
 
 .BoardCell {

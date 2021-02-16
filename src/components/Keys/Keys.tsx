@@ -4,8 +4,8 @@ import './Keys.css';
 export const Keys = ({keys}: { keys: Array<ArrowKey> }) => {
   return (
     <div className="Keys">
-      {keys.map((key, index) => (
-        <div className="Key" key={index}>
+      {keys.map((key) => (
+        <div className="Key" key={key.step}>
           {key.keySymbol}
         </div>
       ))}

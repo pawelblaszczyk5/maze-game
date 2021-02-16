@@ -12,11 +12,26 @@
   margin: 0 10px;
   border-radius: 20px;
   background: var(--prussian-blue);
-  box-shadow: 7px 7px 14px #1c283b,
-  -7px -7px 14px #26364f;
+  box-shadow: 13px 13px 39px #1a2537,
+  -13px -13px 39px #283953;
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--grey);
   font-size: 2em;
+  animation: disappear;
+  animation-delay: 1.5s;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 }

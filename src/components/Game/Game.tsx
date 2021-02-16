@@ -5,15 +5,7 @@ import {Keys} from '../Keys/Keys';
 import useEventListener from '@use-it/event-listener';
 import {ArrowKey} from '../../helpers/interfaces/ArrowKey';
 import './Game.css';
-
-const arrowKeys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'];
-
-const ARROW_SYMBOLS: { [key: string]: string } = {
-  ArrowDown: '↓',
-  ArrowUp: '↑',
-  ArrowLeft: '←',
-  ArrowRight: '→'
-};
+import {arrowKeys, ARROW_SYMBOLS} from '../../helpers/arrowKeys/arrowKeys';
 
 const getRandomCell = (width: number, height: number): CellCoordinates => ({
   x: Math.floor(Math.random() * (width + 1)),
@@ -67,17 +59,16 @@ export const Game = () => {
       }
       let newKey: ArrowKey;
       if (playerPosition.x === newPlayerPosition.x && playerPosition.y === newPlayerPosition.y) {
-        newKey = {keySymbol: ARROW_SYMBOLS[key], isValid: false};
+        newKey = {keySymbol: ARROW_SYMBOLS[key], isValid: false, step: keys.length};
       } else {
-        newKey = {keySymbol: ARROW_SYMBOLS[key], isValid: true};
+        newKey = {keySymbol: ARROW_SYMBOLS[key], isValid: true, step: keys.length};
         setPlayerPosition(newPlayerPosition);
       }
       const newKeysArray = [...keys];
-      newKeysArray.unshift(newKey);
+      newKeysArray.push(newKey);
       setKeys(newKeysArray);
     }
   };
-
 
   useEventListener('keydown', keyDownHandler);
 
@@ -87,8 +78,8 @@ export const Game = () => {
 
   return (
     <div className="Game">
-      <Keys keys={keys.slice(0, 5)}/>
       {maze && <Board maze={maze} player={playerPosition}/>}
+      <Keys keys={keys.slice(-5)}/>
     </div>
   );
 };
