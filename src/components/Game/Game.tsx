@@ -8,8 +8,8 @@ import './Game.css';
 import {arrowKeys, ARROW_SYMBOLS} from '../../helpers/arrowKeys/arrowKeys';
 
 const getRandomCell = (width: number, height: number): CellCoordinates => ({
-  x: Math.floor(Math.random() * (width + 1)),
-  y: Math.floor(Math.random() * (height + 1)),
+  x: Math.floor(Math.random() * width),
+  y: Math.floor(Math.random() * height),
 });
 
 export const Game = () => {
@@ -75,6 +75,12 @@ export const Game = () => {
   useEffect(() => {
     setMaze(generateMaze(width, height, getRandomCell(width, height)));
   }, [width, height]);
+
+  useEffect(() => {
+    if (playerPosition.x === width - 1 && playerPosition.y === height - 1) {
+      setIsGameRunning(false);
+    }
+  }, [width, height, playerPosition]);
 
   return (
     <div className="Game">
