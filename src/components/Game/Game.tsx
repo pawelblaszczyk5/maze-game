@@ -5,7 +5,9 @@ import {Keys} from '../Keys/Keys';
 import useEventListener from '@use-it/event-listener';
 import {ArrowKey} from '../../helpers/interfaces/ArrowKey';
 import './Game.css';
-import {arrowKeys, ARROW_SYMBOLS} from '../../helpers/arrowKeys/arrowKeys';
+import {ARROW_SYMBOLS, arrowKeys} from '../../helpers/arrowKeys/arrowKeys';
+import {Button} from '../Button/Button';
+import {GameDifficulty} from '../../helpers/enums/gameDifficulty';
 
 const getRandomCell = (width: number, height: number): CellCoordinates => ({
   x: Math.floor(Math.random() * width),
@@ -13,12 +15,38 @@ const getRandomCell = (width: number, height: number): CellCoordinates => ({
 });
 
 export const Game = () => {
+  const initialPlayerPosition: CellCoordinates = {x: 0, y: 0};
+
   const [maze, setMaze] = useState<Maze>();
   const [isGameRunning, setIsGameRunning] = useState<boolean>(true);
-  const [width, setWidth] = useState<number>(30);
-  const [height, setHeight] = useState<number>(30);
-  const [playerPosition, setPlayerPosition] = useState<CellCoordinates>({x: 0, y: 0});
+  const [width, setWidth] = useState<number>(15);
+  const [height, setHeight] = useState<number>(15);
+  const [playerPosition, setPlayerPosition] = useState<CellCoordinates>(initialPlayerPosition);
   const [keys, setKeys] = useState<Array<ArrowKey>>([]);
+
+  const startNewGame = (gameDifficulty: GameDifficulty) => {
+    switch (gameDifficulty) {
+      case GameDifficulty.EASY: {
+        setWidth(15);
+        setHeight(15);
+        break;
+      }
+      case GameDifficulty.MEDIUM: {
+        setWidth(20);
+        setHeight(20);
+        break;
+      }
+      case GameDifficulty.HARD: {
+        setWidth(25);
+        setHeight(25);
+        break;
+      }
+    }
+    setPlayerPosition(initialPlayerPosition);
+    setMaze(generateMaze(width, height, getRandomCell(width, height)));
+    setKeys([]);
+    setIsGameRunning(true);
+  };
 
   const keyDownHandler = ({key}: { key: string }) => {
     if (maze && isGameRunning) {
@@ -74,7 +102,7 @@ export const Game = () => {
 
   useEffect(() => {
     setMaze(generateMaze(width, height, getRandomCell(width, height)));
-  }, [width, height]);
+  }, []);
 
   useEffect(() => {
     if (playerPosition.x === width - 1 && playerPosition.y === height - 1) {
