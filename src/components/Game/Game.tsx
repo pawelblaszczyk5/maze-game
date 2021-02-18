@@ -26,7 +26,7 @@ export const Game = () => {
   const [playerPosition, setPlayerPosition] = useState<CellCoordinates>(initialPlayerPosition);
   const [keys, setKeys] = useState<Array<ArrowKey>>([]);
   const [newGame, setNewGame] = useState<boolean>(true);
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const startNewGame = (gameDifficulty: GameDifficulty) => {
     switch (gameDifficulty) {
