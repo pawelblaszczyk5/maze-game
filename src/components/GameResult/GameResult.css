@@ -1,0 +1,12 @@
+.GameResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.GameResult__text {
+  font-size: 1.4em;
+  color: var(--grey);
+  font-weight: 600;
+  margin: 15px 0;
+}

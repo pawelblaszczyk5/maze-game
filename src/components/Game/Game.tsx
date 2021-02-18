@@ -6,8 +6,10 @@ import useEventListener from '@use-it/event-listener';
 import {ArrowKey} from '../../helpers/interfaces/ArrowKey';
 import './Game.css';
 import {ARROW_SYMBOLS, arrowKeys} from '../../helpers/arrowKeys/arrowKeys';
-import {Button} from '../Button/Button';
 import {GameDifficulty} from '../../helpers/enums/gameDifficulty';
+import {NewGameButtons} from '../NewGameButtons/NewGameButtons';
+import {Modal} from '../Modal/Modal';
+import {GameResult} from '../GameResult/GameResult';
 
 const getRandomCell = (width: number, height: number): CellCoordinates => ({
   x: Math.floor(Math.random() * width),
@@ -23,6 +25,8 @@ export const Game = () => {
   const [height, setHeight] = useState<number>(15);
   const [playerPosition, setPlayerPosition] = useState<CellCoordinates>(initialPlayerPosition);
   const [keys, setKeys] = useState<Array<ArrowKey>>([]);
+  const [newGame, setNewGame] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(true);
 
   const startNewGame = (gameDifficulty: GameDifficulty) => {
     switch (gameDifficulty) {
@@ -42,8 +46,9 @@ export const Game = () => {
         break;
       }
     }
+    setShowModal(false);
+    setNewGame(!newGame);
     setPlayerPosition(initialPlayerPosition);
-    setMaze(generateMaze(width, height, getRandomCell(width, height)));
     setKeys([]);
     setIsGameRunning(true);
   };
@@ -102,11 +107,12 @@ export const Game = () => {
 
   useEffect(() => {
     setMaze(generateMaze(width, height, getRandomCell(width, height)));
-  }, []);
+  }, [newGame, width, height]);
 
   useEffect(() => {
     if (playerPosition.x === width - 1 && playerPosition.y === height - 1) {
       setIsGameRunning(false);
+      setShowModal(true);
     }
   }, [width, height, playerPosition]);
 
@@ -114,6 +120,13 @@ export const Game = () => {
     <div className="Game">
       {maze && <Board maze={maze} player={playerPosition}/>}
       <Keys keys={keys.slice(-5)}/>
+      {showModal && <Modal>
+        <>
+          <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={100}/>
+          <NewGameButtons newGameFunction={startNewGame}
+                          difficulties={[GameDifficulty.EASY, GameDifficulty.MEDIUM, GameDifficulty.HARD]}/>
+        </>
+      </Modal>}
     </div>
   );
 };
