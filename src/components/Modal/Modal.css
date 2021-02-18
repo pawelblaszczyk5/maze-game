@@ -1,0 +1,20 @@
+.Modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000033;
+}
+
+.Modal__body {
+  position: absolute;
+  padding: 40px;
+  border-radius: 40px;
+  background: #212f45;
+  box-shadow: 41px 41px 82px #0d131c,
+  -41px -41px 82px #354b6e;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
