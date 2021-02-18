@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 :root {
@@ -16,7 +17,7 @@
   --dark-purple: #312244ff;
   --russian-violet: #3e1f47ff;
   --russian-violet-2: #4d194dff;
-  --grey: #C4C4C4;
+  --grey: #8a97a0;
 }
 
 body {
