@@ -10,7 +10,7 @@
   box-shadow: 13px 13px 38px #161f2e,
   -13px -13px 38px #2c3f5c;
   transition: background-color 0.1s ease-in-out,
-  box-shadow 0.5s linear;
+  box-shadow 0.3s ease-in-out;
   outline: none;
 }
 

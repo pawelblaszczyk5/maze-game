@@ -4,7 +4,6 @@
 
 .NewGameButtons__text {
   text-align: center;
-  color: var(--grey);
   font-size: 1.3em;
   font-weight: 600;
   margin-bottom: 25px;

@@ -24,3 +24,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--prussian-blue);
 }
+
+p {
+  color: var(--grey)
+}
