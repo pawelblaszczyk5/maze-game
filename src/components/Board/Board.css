@@ -1,7 +1,9 @@
 .Board {
   display: grid;
-  width: 600px;
-  height: 600px;
+  max-width: 600px;
+  max-height: 600px;
+  width: 60vh;
+  height: 60vh;
   padding: 30px;
   border-radius: 50px;
   background-color: var(--prussian-blue);
