@@ -113,9 +113,9 @@ export const findShortestPath = (maze: Maze) => {
 
   openList.push(startNode);
 
-  while (openList.length) {
-
-  }
+  // while (openList.length) {
+  //
+  // }
 };
 
 const getDistance = (startCoordinates: CellCoordinates, endCoordinates: CellCoordinates) => {
