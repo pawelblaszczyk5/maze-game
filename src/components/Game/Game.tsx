@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {ReactNode, useEffect, useState} from 'react';
 import {CellCoordinates, generateMaze, Maze} from '../../helpers/maze/maze';
 import {Board} from '../Board/Board';
 import {Keys} from '../Keys/Keys';
@@ -27,8 +27,12 @@ export const Game = () => {
   const [keys, setKeys] = useState<Array<ArrowKey>>([]);
   const [newGame, setNewGame] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [titleScreenVisible, setTitleScreenVisible] = useState<boolean>(true);
 
   const startNewGame = (gameDifficulty: GameDifficulty) => {
+    if (titleScreenVisible) {
+      setTitleScreenVisible(false);
+    }
     switch (gameDifficulty) {
       case GameDifficulty.EASY: {
         setWidth(15);
@@ -103,11 +107,15 @@ export const Game = () => {
     }
   };
 
+  const newGameButtons: ReactNode = <NewGameButtons newGameFunction={startNewGame}
+                                                    difficulties={[GameDifficulty.EASY, GameDifficulty.MEDIUM, GameDifficulty.HARD]}/>;
+
   useEventListener('keydown', keyDownHandler);
 
   useEffect(() => {
     if (newGame) {
       setMaze(generateMaze(width, height, getRandomCell(width, height)));
+      setNewGame(false);
     }
   }, [newGame, width, height]);
 
@@ -120,13 +128,24 @@ export const Game = () => {
 
   return (
     <div className="Game">
+      {titleScreenVisible &&
+      <div className="TitleScreen">
+        <h1>Maze Game</h1>
+        <p>
+          The goal of this game is to solve the maze with the fewest moves.
+          Use arrows to move through the labyrinth and find the quickest path.
+          There are 3 difficulties for you to choose.
+          Good luck!
+        </p>
+        {newGameButtons}
+      </div>
+      }
       {maze && <Board maze={maze} player={playerPosition}/>}
-      <Keys keys={keys.slice(-5)}/>
+      {maze && <Keys keys={keys.slice(-5)}/>}
       {showModal && <Modal>
         <>
           <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={100}/>
-          <NewGameButtons newGameFunction={startNewGame}
-                          difficulties={[GameDifficulty.EASY, GameDifficulty.MEDIUM, GameDifficulty.HARD]}/>
+          {newGameButtons}
         </>
       </Modal>}
     </div>

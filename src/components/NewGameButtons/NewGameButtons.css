@@ -1,8 +1,15 @@
+.NewGameButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .NewGameButtons * {
   margin: 0 10px;
 }
 
 .NewGameButtons__text {
+  width: 100%;
   text-align: center;
   font-size: 1.3em;
   font-weight: 600;
