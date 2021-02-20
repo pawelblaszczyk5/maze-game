@@ -1,5 +1,5 @@
 import {ReactNode, useEffect, useState} from 'react';
-import {CellCoordinates, generateMaze, Maze} from '../../helpers/maze/maze';
+import {CellCoordinates, findShortestPath, generateMaze, Maze} from '../../helpers/maze/maze';
 import {Board} from '../Board/Board';
 import {Keys} from '../Keys/Keys';
 import useEventListener from '@use-it/event-listener';
@@ -118,6 +118,12 @@ export const Game = () => {
       setNewGame(false);
     }
   }, [newGame, width, height]);
+
+  useEffect(() => {
+    if (maze) {
+      console.log(findShortestPath(maze));
+    }
+  }, [maze]);
 
   useEffect(() => {
     if (playerPosition.x === width - 1 && playerPosition.y === height - 1) {

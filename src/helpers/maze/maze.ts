@@ -90,3 +90,34 @@ const initialCell: MazeCell = {
   visited: false
 };
 
+interface MazeNode {
+  cell: MazeCell,
+  estimatedVal: number,
+  estimatedDistanceFromStart: number,
+  estimatedDistanceToEnd: number,
+  parent?: MazeNode
+}
+
+export const findShortestPath = (maze: Maze) => {
+  const start: MazeCell = maze[0][0];
+  const end: MazeCell = maze[maze.length - 1][maze[0].length - 1];
+  const openList: Array<MazeNode> = [];
+  const closeList: Array<MazeNode> = [];
+
+  const startNode = {
+    cell: start,
+    estimatedVal: 0,
+    estimatedDistanceFromStart: 0,
+    estimatedDistanceToEnd: getDistance(start.coordinates, end.coordinates)
+  };
+
+  openList.push(startNode);
+
+  while (openList.length) {
+
+  }
+};
+
+const getDistance = (startCoordinates: CellCoordinates, endCoordinates: CellCoordinates) => {
+  return Math.abs(startCoordinates.x - endCoordinates.x) + Math.abs(startCoordinates.y - endCoordinates.y);
+};
