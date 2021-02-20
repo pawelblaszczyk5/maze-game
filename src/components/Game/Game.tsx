@@ -25,7 +25,7 @@ export const Game = () => {
   const [height, setHeight] = useState<number>(15);
   const [playerPosition, setPlayerPosition] = useState<CellCoordinates>(initialPlayerPosition);
   const [keys, setKeys] = useState<Array<ArrowKey>>([]);
-  const [newGame, setNewGame] = useState<boolean>(true);
+  const [newGame, setNewGame] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const startNewGame = (gameDifficulty: GameDifficulty) => {
@@ -47,7 +47,7 @@ export const Game = () => {
       }
     }
     setShowModal(false);
-    setNewGame(!newGame);
+    setNewGame(true);
     setPlayerPosition(initialPlayerPosition);
     setKeys([]);
     setIsGameRunning(true);
@@ -106,7 +106,9 @@ export const Game = () => {
   useEventListener('keydown', keyDownHandler);
 
   useEffect(() => {
-    setMaze(generateMaze(width, height, getRandomCell(width, height)));
+    if (newGame) {
+      setMaze(generateMaze(width, height, getRandomCell(width, height)));
+    }
   }, [newGame, width, height]);
 
   useEffect(() => {
