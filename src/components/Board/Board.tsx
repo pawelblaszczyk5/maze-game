@@ -1,4 +1,4 @@
-import {CellCoordinates, Maze, MazeCell} from '../../helpers/maze/maze';
+import {CellCoordinates, Maze, MazeCell} from '../../helpers/maze/';
 import './Board.css';
 
 export const Board = ({maze, player, shortestPath}:

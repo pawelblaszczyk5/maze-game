@@ -1,11 +1,11 @@
 import {ReactNode, useEffect, useState} from 'react';
-import {CellCoordinates, findShortestPath, generateMaze, Maze, MazeCell} from '../../helpers/maze/maze';
+import {CellCoordinates, findShortestPath, generateMaze, Maze, MazeCell} from '../../helpers/maze/';
 import {Board} from '../Board/Board';
 import {Keys} from '../Keys/Keys';
 import useEventListener from '@use-it/event-listener';
 import {ArrowKey} from '../../helpers/interfaces/ArrowKey';
 import './Game.css';
-import {ARROW_SYMBOLS, arrowKeys} from '../../helpers/arrowKeys/arrowKeys';
+import {ARROW_SYMBOLS, arrowKeys} from '../../helpers/arrowKeys/';
 import {GameDifficulty} from '../../helpers/enums/gameDifficulty';
 import {NewGameButtons} from '../NewGameButtons/NewGameButtons';
 import {Modal} from '../Modal/Modal';

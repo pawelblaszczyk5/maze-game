@@ -31,4 +31,3 @@ export const useCheat = (cheatCode: string, handler: () => void) => {
 
   return isCheating;
 };
-
