@@ -28,7 +28,7 @@ export const Game = () => {
   const [newGame, setNewGame] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleScreenVisible, setTitleScreenVisible] = useState<boolean>(true);
-  const [shortestPath, setShortestPath] = useState<Array<MazeCell>>();
+  const [shortestPath, setShortestPath] = useState<Array<MazeCell>>([]);
 
   const startNewGame = (gameDifficulty: GameDifficulty) => {
     if (titleScreenVisible) {
@@ -122,7 +122,8 @@ export const Game = () => {
 
   useEffect(() => {
     if (maze) {
-      setShortestPath((findShortestPath(maze)));
+      const newShortestPath = findShortestPath(maze);
+      setShortestPath(newShortestPath ?? []);
     }
   }, [maze]);
 
@@ -147,11 +148,11 @@ export const Game = () => {
         {newGameButtons}
       </div>
       }
-      {maze && <Board maze={maze} player={playerPosition}/>}
+      {maze && <Board maze={maze} player={playerPosition} shortestPath={shortestPath}/>}
       {maze && <Keys keys={keys.slice(-5)}/>}
       {showModal && <Modal>
         <>
-          <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={shortestPath?.length ?? 0}/>
+          <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={shortestPath.length}/>
           {newGameButtons}
         </>
       </Modal>}

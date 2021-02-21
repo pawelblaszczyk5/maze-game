@@ -1,10 +1,17 @@
 import {CellCoordinates, Maze, MazeCell} from '../../helpers/maze/maze';
 import './Board.css';
 
-export const Board = ({maze, player}: { maze: Maze, player: CellCoordinates }) => {
+export const Board = ({
+                        maze,
+                        player,
+                        shortestPath
+                      }: { maze: Maze, player: CellCoordinates, shortestPath: Array<MazeCell> }) => {
+  console.log(shortestPath);
   const getCellStyle = (cell: MazeCell, maze: Maze) => {
     let backgroundColor: string | undefined;
-    if (cell.coordinates.x === player.x && cell.coordinates.y === player.y) {
+    if (shortestPath.some(shortestPathCell => cell.coordinates.x === shortestPathCell.coordinates.x && shortestPathCell.coordinates.y === cell.coordinates.y)) {
+      backgroundColor = '#ff000033';
+    } else if (cell.coordinates.x === player.x && cell.coordinates.y === player.y) {
       backgroundColor = '#8a97a0';
     } else if (cell.coordinates.y === maze.length - 1 && cell.coordinates.x === maze[0].length - 1) {
       backgroundColor = '#3e1f47';
