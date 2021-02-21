@@ -6,16 +6,16 @@ export const Board = ({
                         player,
                         shortestPath
                       }: { maze: Maze, player: CellCoordinates, shortestPath: Array<MazeCell> }) => {
-  console.log(shortestPath);
   const getCellStyle = (cell: MazeCell, maze: Maze) => {
     let backgroundColor: string | undefined;
     if (shortestPath.some(shortestPathCell => cell.coordinates.x === shortestPathCell.coordinates.x && shortestPathCell.coordinates.y === cell.coordinates.y)) {
       backgroundColor = '#ff000033';
-    } else if (cell.coordinates.x === player.x && cell.coordinates.y === player.y) {
+    }
+    if (cell.coordinates.x === player.x && cell.coordinates.y === player.y) {
       backgroundColor = '#8a97a0';
     } else if (cell.coordinates.y === maze.length - 1 && cell.coordinates.x === maze[0].length - 1) {
       backgroundColor = '#3e1f47';
-    } else {
+    } else if (!backgroundColor) {
       backgroundColor = undefined;
     }
     return {

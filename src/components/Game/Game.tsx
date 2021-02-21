@@ -10,6 +10,7 @@ import {GameDifficulty} from '../../helpers/enums/gameDifficulty';
 import {NewGameButtons} from '../NewGameButtons/NewGameButtons';
 import {Modal} from '../Modal/Modal';
 import {GameResult} from '../GameResult/GameResult';
+import {useCheat} from '../../hooks/useCheat';
 
 const getRandomCell = (width: number, height: number): CellCoordinates => ({
   x: Math.floor(Math.random() * width),
@@ -29,6 +30,7 @@ export const Game = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleScreenVisible, setTitleScreenVisible] = useState<boolean>(true);
   const [shortestPath, setShortestPath] = useState<Array<MazeCell>>([]);
+  const [cheating, setCheating] = useState<boolean>(false);
 
   const startNewGame = (gameDifficulty: GameDifficulty) => {
     if (titleScreenVisible) {
@@ -134,6 +136,10 @@ export const Game = () => {
     }
   }, [width, height, playerPosition]);
 
+  useCheat('iamcheater', () => {
+    setCheating(!cheating);
+  });
+
   return (
     <div className="Game">
       {titleScreenVisible &&
@@ -148,11 +154,11 @@ export const Game = () => {
         {newGameButtons}
       </div>
       }
-      {maze && <Board maze={maze} player={playerPosition} shortestPath={shortestPath}/>}
+      {maze && <Board maze={maze} player={playerPosition} shortestPath={cheating ? shortestPath : []}/>}
       {maze && <Keys keys={keys.slice(-5)}/>}
       {showModal && <Modal>
         <>
-          <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={shortestPath.length}/>
+          <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={shortestPath.length - 1}/>
           {newGameButtons}
         </>
       </Modal>}
