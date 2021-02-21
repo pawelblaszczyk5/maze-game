@@ -60,10 +60,11 @@ export const Game = () => {
     setIsGameRunning(true);
   };
 
-  const keyDownHandler = ({key}: { key: string }) => {
+  const keyDownHandler = (e: KeyboardEvent) => {
     if (maze && isGameRunning) {
-      if (arrowKeys.includes(key)) {
-        handlePlayerPositionChange(key);
+      if (arrowKeys.includes(e.key)) {
+        e.preventDefault();
+        handlePlayerPositionChange(e.key);
       }
     }
   };
