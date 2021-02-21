@@ -101,8 +101,8 @@ interface MazeNode {
 export const findShortestPath = (maze: Maze) => {
   const start: MazeCell = maze[0][0];
   const end: MazeCell = maze[maze.length - 1][maze[0].length - 1];
-  const openList: Array<MazeNode> = [];
-  const closeList: Array<MazeNode> = [];
+  const openList: Array<Array<MazeNode | null>> = [...Array(maze.length)].map(() => Array(maze[0].length));
+  const closeList: Array<Array<MazeNode | null>> = [...Array(maze.length)].map(() => Array(maze[0].length));
 
   const startNode: MazeNode = {
     cell: start,
@@ -111,37 +111,28 @@ export const findShortestPath = (maze: Maze) => {
     estimatedDistanceToEnd: getDistance(start.coordinates, end.coordinates)
   };
 
-  openList.push(startNode);
+  openList[startNode.cell.coordinates.y][startNode.cell.coordinates.x] = startNode;
   while (openList.length) {
     const bestNode = getBestNode(openList);
-
-    openList.splice(openList.findIndex(val => areObjectsSame(bestNode, val)), 1);
     const validSuccessorNodes = setUpNodes(getValidNeighboors(bestNode.cell, maze), bestNode, end.coordinates);
     const finishNode = validSuccessorNodes.find((node) => node.cell.coordinates.y === end.coordinates.y && node.cell.coordinates.x === end.coordinates.x);
+    
+    openList[bestNode.cell.coordinates.y][bestNode.cell.coordinates.x] = null;
     if (finishNode) {
       return backtrackBestPath(finishNode);
     } else {
       validSuccessorNodes.forEach((successorNode) => {
-        const openListBetterCells = openList.filter((node) => {
-          return successorNode.cell.coordinates.x === node.cell.coordinates.x &&
-            successorNode.cell.coordinates.y === node.cell.coordinates.y &&
-            node.estimatedVal < successorNode.estimatedVal;
-        });
-        if (!openListBetterCells.length) {
-          const closedListBetterCells = closeList.filter((node) => {
-            return successorNode.cell.coordinates.x === node.cell.coordinates.x &&
-              successorNode.cell.coordinates.y === node.cell.coordinates.y &&
-              node.estimatedVal < successorNode.estimatedVal;
-          });
-          if (!closedListBetterCells.length) {
-            openList.push(successorNode);
+        const cellFromOpenList = openList[successorNode.cell.coordinates.y][successorNode.cell.coordinates.x];
+        if (!cellFromOpenList || cellFromOpenList.estimatedVal > successorNode.estimatedVal) {
+          const cellFromClosedList = closeList[successorNode.cell.coordinates.y][successorNode.cell.coordinates.x];
+          if (!cellFromClosedList || cellFromClosedList.estimatedVal > successorNode.estimatedVal) {
+            openList[successorNode.cell.coordinates.y][successorNode.cell.coordinates.x] = successorNode;
           }
         }
       });
     }
-    closeList.push(bestNode);
+    closeList[bestNode.cell.coordinates.y][bestNode.cell.coordinates.x] = bestNode;
   }
-
 };
 
 const getDistance = (startCoordinates: CellCoordinates, endCoordinates: CellCoordinates) => {
@@ -194,22 +185,14 @@ const setUpNodes = (cells: Array<MazeCell>, parent: MazeNode, endCoordinates: Ce
   });
 };
 
-const getBestNode = (nodes: Array<MazeNode>): MazeNode => {
-  return nodes.reduce((currentNode, previousNode) => {
-    return previousNode.estimatedVal < currentNode.estimatedVal ? previousNode : currentNode;
-  });
-};
-
-const areObjectsSame = (x: object, y: object): boolean => {
-  const xEntries = Object.values((x));
-  const yEntries = Object.values((y));
-  let areSame = true;
-  
-  xEntries.forEach((entry, index) => {
-    if (entry !== yEntries[index]) {
-      areSame = false;
+const getBestNode = (nodes: Array<Array<MazeNode | null>>): MazeNode => {
+  const filteredNodes: Array<MazeNode> = [];
+  nodes.flat().forEach((node) => {
+    if (node) {
+      filteredNodes.push(node);
     }
   });
-
-  return areSame;
+  return filteredNodes.reduce((currentNode, previousNode) => {
+    return previousNode.estimatedVal < currentNode.estimatedVal ? previousNode : currentNode;
+  });
 };
