@@ -1,5 +1,14 @@
 .ScreenIndicatorOverlay {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px;
+  background-color: var(--prussian-blue);
 }
 
 .ScreenIndicatorOverlay p {
@@ -8,17 +17,8 @@
   text-align: center;
 }
 
-@media screen and (max-width: 1024px) and (max-height: 768px) {
+@media screen and (min-width: 1024px) and (min-height: 768px) {
   .ScreenIndicatorOverlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 40px;
-    background-color: var(--prussian-blue);
+    display: none;
   }
 }
