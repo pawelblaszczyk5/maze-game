@@ -1,0 +1,24 @@
+.ScreenIndicatorOverlay {
+  display: none;
+}
+
+.ScreenIndicatorOverlay p {
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media screen and (max-width: 1024px) and (max-height: 768px) {
+  .ScreenIndicatorOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px;
+    background-color: var(--prussian-blue);
+  }
+}

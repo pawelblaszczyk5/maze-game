@@ -11,6 +11,7 @@ import {NewGameButtons} from '../NewGameButtons/NewGameButtons';
 import {Modal} from '../Modal/Modal';
 import {GameResult} from '../GameResult/GameResult';
 import {useCheat} from '../../hooks/useCheat/';
+import {ScreenIndicatorOverlay} from '../ScreenIndicatorOverlay/ScreenIndicatorOverlay';
 
 const getRandomCell = (width: number, height: number): CellCoordinates => ({
   x: Math.floor(Math.random() * width),
@@ -163,6 +164,7 @@ export const Game = () => {
           {newGameButtons}
         </>
       </Modal>}
+      <ScreenIndicatorOverlay/>
     </div>
   );
 };
