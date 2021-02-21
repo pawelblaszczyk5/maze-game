@@ -35,9 +35,7 @@ const recursiveBackTrack = (previousCell: MazeCell, grid: Maze) => {
   const neighbours = getNeighbours(previousCell, grid).filter(cell => !cell.visited);
   if (neighbours.length) {
     const nextCell = neighbours[Math.floor(Math.random() * neighbours.length)];
-    if (neighbours.length > 1) {
-      cellStack.push(nextCell);
-    }
+    cellStack.push(nextCell);
     carveWalls(previousCell, nextCell);
     recursiveBackTrack(nextCell, grid);
   } else {
@@ -116,7 +114,7 @@ export const findShortestPath = (maze: Maze) => {
     const bestNode = getBestNode(openList);
     const validSuccessorNodes = setUpNodes(getValidNeighboors(bestNode.cell, maze), bestNode, end.coordinates);
     const finishNode = validSuccessorNodes.find((node) => node.cell.coordinates.y === end.coordinates.y && node.cell.coordinates.x === end.coordinates.x);
-    
+
     openList[bestNode.cell.coordinates.y][bestNode.cell.coordinates.x] = null;
     if (finishNode) {
       return backtrackBestPath(finishNode);

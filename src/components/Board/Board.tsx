@@ -17,6 +17,7 @@ export const Board = ({maze, player, shortestPath}:
     } else if (!backgroundColor) {
       backgroundColor = undefined;
     }
+    
     return {
       borderBottomWidth: cell.bottomWall ? '1px' : undefined,
       borderLeftWidth: cell.leftWall ? '1px' : undefined,
