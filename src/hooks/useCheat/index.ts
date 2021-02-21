@@ -8,15 +8,19 @@ export const useCheat = (cheatCode: string, handler: () => void) => {
     let timeout: ReturnType<typeof setTimeout>;
 
     document.addEventListener('keypress', (e: KeyboardEvent) => {
-      setKeys((currentKeys) => [...currentKeys, e.key]);
+      if (cheatCode.includes(e.key)) {
+        setKeys((currentKeys) => [...currentKeys, e.key]);
+      } else {
+        setKeys([]);
+      }
       clearTimeout(timeout);
       timeout = setTimeout(() => setKeys([]), 5000);
     });
-    
+
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [cheatCode]);
 
   useEffect(() => {
     if (isCheating) {

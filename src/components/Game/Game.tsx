@@ -10,7 +10,7 @@ import {GameDifficulty} from '../../helpers/enums/gameDifficulty';
 import {NewGameButtons} from '../NewGameButtons/NewGameButtons';
 import {Modal} from '../Modal/Modal';
 import {GameResult} from '../GameResult/GameResult';
-import {useCheat} from '../../hooks/useCheat';
+import {useCheat} from '../../hooks/useCheat/';
 
 const getRandomCell = (width: number, height: number): CellCoordinates => ({
   x: Math.floor(Math.random() * width),
