@@ -2,10 +2,8 @@ import {GameDifficulty} from '../../helpers/enums/gameDifficulty';
 import {Button} from '../Button/Button';
 import './NewGameButtons.css';
 
-export const NewGameButtons = ({
-                                 newGameFunction,
-                                 difficulties
-                               }: { newGameFunction: (...args: Array<any>) => void, difficulties: Array<GameDifficulty> }) => {
+export const NewGameButtons = ({newGameFunction, difficulties}:
+                                 { newGameFunction: (...args: Array<any>) => void, difficulties: Array<GameDifficulty> }) => {
     const difficultiesNames: Array<string> = ['Easy', 'Medium', 'Hard'];
 
     return (
