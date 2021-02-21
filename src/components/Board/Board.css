@@ -2,8 +2,8 @@
   display: grid;
   max-width: 600px;
   max-height: 600px;
-  width: 60vh;
-  height: 60vh;
+  width: 65vh;
+  height: 65vh;
   padding: 30px;
   border-radius: 50px;
   background-color: var(--prussian-blue);
