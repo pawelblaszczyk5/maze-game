@@ -1,5 +1,5 @@
 import {ReactNode, useEffect, useState} from 'react';
-import {CellCoordinates, findShortestPath, generateMaze, Maze} from '../../helpers/maze/maze';
+import {CellCoordinates, findShortestPath, generateMaze, Maze, MazeCell} from '../../helpers/maze/maze';
 import {Board} from '../Board/Board';
 import {Keys} from '../Keys/Keys';
 import useEventListener from '@use-it/event-listener';
@@ -28,6 +28,7 @@ export const Game = () => {
   const [newGame, setNewGame] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleScreenVisible, setTitleScreenVisible] = useState<boolean>(true);
+  const [shortestPath, setShortestPath] = useState<Array<MazeCell>>();
 
   const startNewGame = (gameDifficulty: GameDifficulty) => {
     if (titleScreenVisible) {
@@ -121,7 +122,7 @@ export const Game = () => {
 
   useEffect(() => {
     if (maze) {
-      console.log(findShortestPath(maze));
+      setShortestPath((findShortestPath(maze)));
     }
   }, [maze]);
 
@@ -150,7 +151,7 @@ export const Game = () => {
       {maze && <Keys keys={keys.slice(-5)}/>}
       {showModal && <Modal>
         <>
-          <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={100}/>
+          <GameResult moves={keys.filter(key => key.isValid).length} bestMoves={shortestPath?.length ?? 0}/>
           {newGameButtons}
         </>
       </Modal>}
