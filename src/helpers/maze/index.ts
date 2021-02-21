@@ -163,7 +163,6 @@ const backtrackBestPath = (node: MazeNode): Array<MazeCell> => {
 
 const getValidNeighboors = (cell: MazeCell, maze: Maze): Array<MazeCell> => {
   const validNeighbours: Array<MazeCell> = [];
-
   const allNeighbours: Array<MazeCell | undefined> = [];
 
   allNeighbours.push(
@@ -204,8 +203,8 @@ const getBestNode = (nodes: Array<MazeNode>): MazeNode => {
 const areObjectsSame = (x: object, y: object): boolean => {
   const xEntries = Object.values((x));
   const yEntries = Object.values((y));
-
   let areSame = true;
+  
   xEntries.forEach((entry, index) => {
     if (entry !== yEntries[index]) {
       areSame = false;
