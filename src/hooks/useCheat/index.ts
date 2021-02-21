@@ -16,10 +16,6 @@ export const useCheat = (cheatCode: string, handler: () => void) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => setKeys([]), 5000);
     });
-
-    return () => {
-      clearTimeout(timeout);
-    };
   }, [cheatCode]);
 
   useEffect(() => {
