@@ -15,7 +15,7 @@ export const useCheat = (cheatCode: string, handler: () => void) => {
   }, [cheatCode]);
 
   useEffect(() => {
-    if (keys.length && !cheatCode.includes(keys.join(''))) {
+    if (keys.length && cheatCode.indexOf(keys.join('')) !== 0) {
       setKeys([]);
     }
   }, [keys, cheatCode]);
