@@ -17,7 +17,7 @@
   text-align: center;
 }
 
-@media screen and (min-width: 1024px) and (min-height: 768px) {
+@media screen and (min-width: 800px) and (min-height: 600px) {
   .ScreenIndicatorOverlay {
     display: none;
   }
