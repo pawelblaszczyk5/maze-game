@@ -150,7 +150,7 @@ const backtrackBestPath = (node: MazeNode): Array<MazeCell> => {
   return path;
 };
 
-const getValidNeighboors = (cell: MazeCell, maze: Maze): Array<MazeCell> => {
+const getValidNeighbours = (cell: MazeCell, maze: Maze): Array<MazeCell> => {
   const validNeighbours: Array<MazeCell> = [];
   const allNeighbours: Array<MazeCell | undefined> = [];
 
