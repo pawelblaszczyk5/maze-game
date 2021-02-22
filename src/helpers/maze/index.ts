@@ -112,7 +112,7 @@ export const findShortestPath = (maze: Maze) => {
   openList[startNode.cell.coordinates.y][startNode.cell.coordinates.x] = startNode;
   while (openList.length) {
     const bestNode = getBestNode(openList);
-    const validSuccessorNodes = setUpNodes(getValidNeighboors(bestNode.cell, maze), bestNode, end.coordinates);
+    const validSuccessorNodes = setUpNodes(getValidNeighbours(bestNode.cell, maze), bestNode, end.coordinates);
     const finishNode = validSuccessorNodes.find((node) => node.cell.coordinates.y === end.coordinates.y && node.cell.coordinates.x === end.coordinates.x);
 
     openList[bestNode.cell.coordinates.y][bestNode.cell.coordinates.x] = null;
