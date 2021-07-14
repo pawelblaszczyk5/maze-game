@@ -12,7 +12,7 @@ You can check out the game [here](https://maze-game.pawelblaszczyk.ct8.pl/).
 
 - Clone repo
 - Run `yarn add`
-- Run `yarn run star`
+- Run `yarn run start`
 
 ## Functionalities
 
