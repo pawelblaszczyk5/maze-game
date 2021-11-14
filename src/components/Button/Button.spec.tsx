@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Button } from '@/components/Button/Button';
+import { Button, ButtonProps } from '@/components/Button/Button';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 
@@ -7,8 +7,8 @@ const setup = ({
   onClick = jest.fn(),
   children,
 }: {
-  onClick?: jest.Mock;
-  children?: React.ReactNode;
+  onClick?: ButtonProps['onClick'];
+  children?: ButtonProps['children'];
 } = {}) => {
   render(<Button onClick={onClick}>{children}</Button>);
 };

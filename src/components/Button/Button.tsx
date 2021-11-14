@@ -1,7 +1,7 @@
 import React from 'react';
 import { button } from '@/components/Button/Button.css';
 
-interface ButtonProps {
+export interface ButtonProps {
   onClick: () => void;
   children?: React.ReactNode;
 }
