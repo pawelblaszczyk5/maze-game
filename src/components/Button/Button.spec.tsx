@@ -27,13 +27,13 @@ describe('Button tests', () => {
   });
 
   test('should invoke passed callback on click', () => {
-    const mockOnClickFunction = jest.fn();
+    const mockOnClick = jest.fn();
 
-    setup({ onClick: mockOnClickFunction });
+    setup({ onClick: mockOnClick });
 
     userEvent.click(screen.getByRole('button'));
     userEvent.click(screen.getByRole('button'));
 
-    expect(mockOnClickFunction).toHaveBeenCalledTimes(2);
+    expect(mockOnClick).toHaveBeenCalledTimes(2);
   });
 });

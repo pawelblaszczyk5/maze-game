@@ -11,4 +11,5 @@ globalStyle('body', {
   background: vars.color.dark.main,
   color: vars.color.light.main,
   margin: vars.spacing.xlarge,
+  lineHeight: '170%',
 });
