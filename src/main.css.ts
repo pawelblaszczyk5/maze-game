@@ -10,5 +10,5 @@ globalStyle('*', {
 globalStyle('body', {
   background: vars.color.dark.main,
   color: vars.color.light.main,
-  margin: vars.spacing.large,
+  margin: vars.spacing.xlarge,
 });

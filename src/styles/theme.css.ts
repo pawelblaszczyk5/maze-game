@@ -1,4 +1,4 @@
-import { createGlobalTheme } from '@vanilla-extract/css';
+import { createGlobalTheme, style } from '@vanilla-extract/css';
 
 export const vars = createGlobalTheme(':root', {
   color: {
@@ -56,5 +56,12 @@ export const vars = createGlobalTheme(':root', {
     large: '1.5rem',
     xlarge: '1.75rem',
     xxlarge: '2rem',
+  },
+});
+
+export const focusStyles = style({
+  ':focus-visible': {
+    boxShadow: `0px 0px 1px 3px ${vars.color.accent.cold.main}`,
+    outline: 'none',
   },
 });
