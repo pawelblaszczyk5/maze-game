@@ -12,7 +12,7 @@ const config = {
 
 module.exports = (api) => {
   if (api.env('test')) {
-    config.presets.push([
+    config.presets.push('@babel/preset-typescript', [
       '@babel/preset-env',
       {
         targets: {

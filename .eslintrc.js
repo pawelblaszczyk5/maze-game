@@ -27,5 +27,6 @@ module.exports = {
         html: true,
       },
     ],
+    'newline-after-var': 2,
   },
 };
