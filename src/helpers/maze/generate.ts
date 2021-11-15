@@ -1,5 +1,6 @@
 import { Size } from '@/model/size';
 import { Maze, MazeCell } from '@/model/maze';
+import { RelativeDirection } from '@/model/enums/relativeDirection';
 
 export const generateMaze = ({ width, height }: Size): Maze => {
   const maze: Maze = createMazeBoilerplate(width, height);
@@ -97,10 +98,3 @@ const getCellsRelativeDirection = ([
   }
   return isYDifference ? RelativeDirection.UP : RelativeDirection.LEFT;
 };
-
-const enum RelativeDirection {
-  UP,
-  DOWN,
-  RIGHT,
-  LEFT,
-}
