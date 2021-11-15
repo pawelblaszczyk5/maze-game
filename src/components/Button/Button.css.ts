@@ -1,8 +1,8 @@
 import { style } from '@vanilla-extract/css';
-import { focusStyles, vars } from '@/styles/theme.css';
+import { focus, vars } from '@/styles/theme.css';
 
 export const button = style([
-  focusStyles,
+  focus,
   {
     padding: `${vars.spacing.small} ${vars.spacing.large}`,
     border: 'none',

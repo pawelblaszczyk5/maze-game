@@ -2,6 +2,8 @@ import { Coordinates, Maze } from '@/model/maze';
 import { container } from '@/components/Board/Board.css';
 import { Cell } from '@/components/Cell';
 import { useState } from 'react';
+import { RelativeDirection } from '@/model/enums/relativeDirection';
+import { PlayerMoves } from '@/components/PlayerMoves';
 
 interface BoardProps {
   board: Maze;
@@ -13,26 +15,50 @@ export const Board = ({ board }: BoardProps) => {
     y: 0,
   });
 
+  const movePlayer = (direction: RelativeDirection) => {
+    switch (direction) {
+      case RelativeDirection.DOWN:
+        setPlayerPosition(({ x, y }) => ({ x, y: y + 1 }));
+        break;
+      case RelativeDirection.UP:
+        setPlayerPosition(({ x, y }) => ({ x, y: y - 1 }));
+        break;
+      case RelativeDirection.LEFT:
+        setPlayerPosition(({ x, y }) => ({ x: x - 1, y }));
+        break;
+      case RelativeDirection.RIGHT:
+        setPlayerPosition(({ x, y }) => ({ x: x + 1, y }));
+        break;
+    }
+  };
+
   return (
-    <div
-      className={container}
-      style={{ '--current-board-height': board.length }}
-    >
-      {board.map((row, currentY) =>
-        row.map((cell, currentX) => (
-          <Cell
-            cell={cell}
-            playerVisiting={
-              playerPosition.x === currentX && playerPosition.y === currentY
-            }
-            mazeEnd={
-              cell.coordinates.x === board.length - 1 &&
-              cell.coordinates.y === board.length - 1
-            }
-            key={`${currentY}${currentX}`}
-          />
-        )),
-      )}
-    </div>
+    <>
+      <div
+        className={container}
+        style={{ '--current-board-height': board.length }}
+      >
+        {board.map((row, currentY) =>
+          row.map((cell, currentX) => (
+            <Cell
+              cell={cell}
+              playerVisiting={
+                playerPosition.x === currentX && playerPosition.y === currentY
+              }
+              mazeEnd={
+                cell.coordinates.x === board.length - 1 &&
+                cell.coordinates.y === board.length - 1
+              }
+              key={`${currentY}_${currentX}`}
+            />
+          )),
+        )}
+      </div>
+      <PlayerMoves
+        onPlayerMove={movePlayer}
+        board={board}
+        playerPosition={playerPosition}
+      />
+    </>
   );
 };
