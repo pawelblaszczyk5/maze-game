@@ -1,15 +1,13 @@
-import './Button.css';
+import React from 'react';
+import { button } from '@/components/Button/Button.css';
 
-export const Button = ({
-                         buttonText,
-                         buttonHandler,
-                         buttonHandlerArgs
-                       }: { buttonText: string, buttonHandler: (...args: Array<any>) => void, buttonHandlerArgs: Array<any> }) => {
-  return (
-    <button type="button" className="Button" onClick={() => {
-      buttonHandler(...buttonHandlerArgs);
-    }}>
-      {buttonText}
-    </button>
-  );
-};
+export interface ButtonProps {
+  onClick: () => void;
+  children?: React.ReactNode;
+}
+
+export const Button = ({ onClick, children }: ButtonProps) => (
+  <button className={button} onClick={onClick}>
+    {children ?? 'Click'}
+  </button>
+);

@@ -1,48 +1,98 @@
-import {CellCoordinates, Maze, MazeCell} from '../../helpers/maze/';
-import './Board.css';
+import { Coordinates, Maze, MazeCell } from '@/model/maze';
+import { container } from '@/components/Board/Board.css';
+import { Cell } from '@/components/Cell';
+import { useEffect, useState } from 'react';
+import { RelativeDirection } from '@/model/enums/relativeDirection';
+import { PlayerMoves } from '@/components/PlayerMoves';
+import { GameResult } from '@/model/gameResult';
+import { useCheat } from '@/hooks/useCheat';
 
-export const Board = ({maze, player, shortestPath}:
-                        { maze: Maze, player: CellCoordinates, shortestPath: Array<MazeCell> }) => {
-  const getCellStyle = (cell: MazeCell, maze: Maze) => {
-    let backgroundColor: string | undefined;
+interface BoardProps {
+  board: Maze;
+  gameInProgress: boolean;
+  onGameFinish: (result: GameResult) => void;
+  solution: Array<MazeCell>;
+}
 
-    if (shortestPath.some(shortestPathCell => cell.coordinates.x === shortestPathCell.coordinates.x && shortestPathCell.coordinates.y === cell.coordinates.y)) {
-      backgroundColor = '#3e1f4799';
+const CHEAT_CODE: Array<string> = [
+  'KeyC',
+  'KeyH',
+  'KeyE',
+  'KeyA',
+  'KeyT',
+  'KeyE',
+  'KeyR',
+];
+
+export const Board = ({
+  board,
+  gameInProgress,
+  onGameFinish,
+  solution,
+}: BoardProps) => {
+  const [playerPosition, setPlayerPosition] = useState<Coordinates>({
+    x: 0,
+    y: 0,
+  });
+  const cheating = useCheat(CHEAT_CODE);
+
+  useEffect(() => {
+    setPlayerPosition({ x: 0, y: 0 });
+  }, [board]);
+
+  const movePlayer = (direction: RelativeDirection) => {
+    switch (direction) {
+      case RelativeDirection.DOWN:
+        setPlayerPosition(({ x, y }) => ({ x, y: y + 1 }));
+        break;
+      case RelativeDirection.UP:
+        setPlayerPosition(({ x, y }) => ({ x, y: y - 1 }));
+        break;
+      case RelativeDirection.LEFT:
+        setPlayerPosition(({ x, y }) => ({ x: x - 1, y }));
+        break;
+      case RelativeDirection.RIGHT:
+        setPlayerPosition(({ x, y }) => ({ x: x + 1, y }));
+        break;
     }
-
-    if (cell.coordinates.x === player.x && cell.coordinates.y === player.y) {
-      backgroundColor = '#8a97a0';
-    } else if (cell.coordinates.y === maze.length - 1 && cell.coordinates.x === maze[0].length - 1) {
-      backgroundColor = '#3e1f47';
-    } else if (!backgroundColor) {
-      backgroundColor = undefined;
-    }
-    
-    return {
-      borderBottomWidth: cell.bottomWall ? '1px' : undefined,
-      borderLeftWidth: cell.leftWall ? '1px' : undefined,
-      borderTopWidth: cell.topWall ? '1px' : undefined,
-      borderRightWidth: cell.rightWall ? '1px' : undefined,
-      backgroundColor: backgroundColor
-    };
   };
 
-  const getGridStyles = () => {
-    return {
-      gridTemplateColumns: `repeat(${maze[0].length},1fr)`,
-      gridTemplateRows: `repeat(${maze.length},1fr)`
-    };
+  const handleGameFinish = (moves: number) => {
+    onGameFinish({ moves, perfectMoves: solution.length });
   };
 
   return (
-    <div className="Board" style={getGridStyles()}>
-      {maze && maze.map((row) => {
-        return row.map((cell) => (
-          <div style={getCellStyle(cell, maze)} key={`${cell.coordinates.y}${cell.coordinates.x}`}
-               className="BoardCell"/>
-        ));
-      })}
-    </div>
+    <>
+      <div
+        className={container}
+        style={{ '--current-board-height': board.length }}
+      >
+        {board.map((row, currentY) =>
+          row.map((cell, currentX) => (
+            <Cell
+              showSolution={cheating}
+              solution={solution}
+              cell={cell}
+              playerVisiting={
+                playerPosition.x === currentX && playerPosition.y === currentY
+              }
+              mazeEnd={
+                cell.coordinates.x === board.length - 1 &&
+                cell.coordinates.y === board.length - 1
+              }
+              key={`${currentY}_${currentX}`}
+            />
+          )),
+        )}
+      </div>
+      {gameInProgress && (
+        <PlayerMoves
+          onPlayerMove={movePlayer}
+          board={board}
+          playerPosition={playerPosition}
+          onGameFinish={handleGameFinish}
+        />
+      )}
+    </>
   );
 };
-

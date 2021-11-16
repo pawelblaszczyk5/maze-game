@@ -11,8 +11,8 @@ You can check out the game [here](https://maze-game.pawelblaszczyk.ct8.pl/).
 ## Run it locally
 
 - Clone repo
-- Run `yarn add`
-- Run `yarn run start`
+- Run `npm ci`
+- Run `npm run dev`
 
 ## Functionalities
 
