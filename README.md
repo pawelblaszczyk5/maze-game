@@ -2,7 +2,8 @@
 
 [![Maze Game example recording](public/game-recording.gif)](https://maze-game-pawelblaszczyk.netlify.app/)
 
-This is a simple maze solving game made in React.js. That was the first thing that I made while learning it.
+This is a simple maze solving game made in React.js. That was the first thing that I made while learning it. Since then,
+I rewrote it from scratch :)
 
 ## Live version
 
