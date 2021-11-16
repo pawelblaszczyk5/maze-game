@@ -20,6 +20,7 @@ export const App = () => {
       ) : (
         <WelcomeScreen onGameStart={startGame} />
       )}
+      {/*{TODO ADD MEDIA QUERY TO HIDE WHOLE GAME AND ADD DISCLAIMER}*/}
     </main>
   );
 };

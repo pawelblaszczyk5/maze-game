@@ -6,6 +6,7 @@ export const useCheat = (cheatCode: Array<string>) => {
   const cheatCodeRef = useRef(cheatCode);
   const enteredLetters = useRef<Array<string>>([]);
   const timeoutRef = useRef<number>();
+
   const toggleCheating = useRef(() => setCheating((cheating) => !cheating));
 
   const resetEnteredLetters = useRef(() => (enteredLetters.current = []));
