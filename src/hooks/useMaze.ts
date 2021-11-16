@@ -1,7 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { generateMaze } from '@/helpers/maze';
 import { Difficulty } from '@/model/enums/difficulty';
 import { Size } from '@/model/size';
+import { solveMaze } from '@/helpers/maze/solve';
 
 const MAZE_SIZE: Record<Difficulty, Size> = {
   [Difficulty.EASY]: { width: 15, height: 15 },
@@ -14,6 +15,8 @@ export const useMaze = (initialDifficulty: Difficulty) => {
     generateMaze(MAZE_SIZE[initialDifficulty]),
   );
 
+  const solution = useMemo(() => solveMaze(maze), [maze]);
+
   const generateNewMaze = useCallback((difficulty: Difficulty) => {
     setMaze(generateMaze(MAZE_SIZE[difficulty]));
   }, []);
@@ -21,5 +24,6 @@ export const useMaze = (initialDifficulty: Difficulty) => {
   return {
     maze,
     generateNewMaze,
+    solution,
   };
 };
