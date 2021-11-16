@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { RelativeDirection } from '@/model/enums/relativeDirection';
 import { PlayerMoves } from '@/components/PlayerMoves';
 import { GameResult } from '@/model/gameResult';
+import { useCheat } from '@/hooks/useCheat';
 
 interface BoardProps {
   board: Maze;
@@ -12,6 +13,16 @@ interface BoardProps {
   onGameFinish: (result: GameResult) => void;
   solution: Array<MazeCell>;
 }
+
+const CHEAT_CODE: Array<string> = [
+  'KeyC',
+  'KeyH',
+  'KeyE',
+  'KeyA',
+  'KeyT',
+  'KeyE',
+  'KeyR',
+];
 
 export const Board = ({
   board,
@@ -23,6 +34,7 @@ export const Board = ({
     x: 0,
     y: 0,
   });
+  const cheating = useCheat(CHEAT_CODE);
 
   useEffect(() => {
     setPlayerPosition({ x: 0, y: 0 });
@@ -58,7 +70,7 @@ export const Board = ({
         {board.map((row, currentY) =>
           row.map((cell, currentX) => (
             <Cell
-              showSolution={true}
+              showSolution={cheating}
               solution={solution}
               cell={cell}
               playerVisiting={
