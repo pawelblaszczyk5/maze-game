@@ -1,5 +1,5 @@
 import { RelativeDirection } from '@/model/enums/relativeDirection';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Coordinates, Maze, MazeCell } from '@/model/maze';
 import { useWindowEventListener } from '@/hooks/useWindowEventListener';
 import { Move } from '@/model/move';
@@ -44,7 +44,9 @@ export const PlayerMoves = ({
   playerPosition,
   onGameFinish,
 }: PlayerMovesProps) => {
-  const [moves, setMoves] = useState<Array<Move>>([]);
+  const [allMoves, setAllMoves] = useState<Array<Move>>([]);
+  const movesToDisplay = useMemo(() => allMoves.slice(-5), [allMoves]);
+
   const keyPressHandler = ({ key }: KeyboardEvent) => {
     if (
       key === ArrowKey.UP ||
@@ -58,7 +60,7 @@ export const PlayerMoves = ({
       if (isValidMove) {
         onPlayerMove(KEY_TO_DIRECTION[key]);
       }
-      setMoves((moves) => [...moves, { key, valid: isValidMove }].slice(-5));
+      setAllMoves((moves) => [...moves, { key, valid: isValidMove }]);
     }
   };
 
@@ -67,15 +69,15 @@ export const PlayerMoves = ({
       playerPosition.y === board.length - 1 &&
       playerPosition.x === board.length - 1
     ) {
-      onGameFinish(moves.length);
+      onGameFinish(allMoves.length);
     }
-  }, [board, moves, onGameFinish, playerPosition]);
+  }, [board, allMoves, onGameFinish, playerPosition]);
 
   useWindowEventListener('keydown', keyPressHandler);
 
   return (
     <div className={arrowsContainer}>
-      {moves.map(({ key, valid }, index) => (
+      {movesToDisplay.map(({ key, valid }, index) => (
         <div
           className={`${arrowTile} ${!valid ? arrowTileInvalid : ''}`}
           key={index}

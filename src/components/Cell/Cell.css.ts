@@ -5,6 +5,10 @@ export const singleCell = style({
   border: `1px solid ${vars.color.accent.warm.main}`,
 });
 
+export const singleCellSolutionPart = style({
+  backgroundColor: vars.color.accent.warm.secondary,
+});
+
 export const singleCellMazeEnd = style({
   backgroundColor: vars.color.accent.cold.main,
 });

@@ -3,6 +3,7 @@ import {
   singleCell,
   singleCellCurrentlyVisited,
   singleCellMazeEnd,
+  singleCellSolutionPart,
 } from './Cell.css';
 import { useMemo } from 'react';
 
@@ -10,21 +11,30 @@ interface CellProps {
   cell: MazeCell;
   playerVisiting: boolean;
   mazeEnd: boolean;
+  solution: Array<MazeCell>;
+  showSolution: boolean;
 }
 
 export const Cell = ({
-  cell: { coordinates, walls },
+  cell,
   playerVisiting,
   mazeEnd,
+  solution,
+  showSolution,
 }: CellProps) => {
+  const partOfTheSolution = useMemo(
+    () => solution.includes(cell),
+    [cell, solution],
+  );
+
   const cellStyles = useMemo(
     () => ({
-      borderLeft: walls.left ? undefined : 0,
-      borderRight: walls.right ? undefined : 0,
-      borderTop: walls.top ? undefined : 0,
-      borderBottom: walls.bottom ? undefined : 0,
+      borderLeft: cell.walls.left ? undefined : 0,
+      borderRight: cell.walls.right ? undefined : 0,
+      borderTop: cell.walls.top ? undefined : 0,
+      borderBottom: cell.walls.bottom ? undefined : 0,
     }),
-    [walls],
+    [cell],
   );
 
   return (
@@ -32,8 +42,8 @@ export const Cell = ({
       style={cellStyles}
       className={`${singleCell} ${mazeEnd ? singleCellMazeEnd : ''} ${
         playerVisiting ? singleCellCurrentlyVisited : ''
-      }`}
-      key={`${coordinates.y}${coordinates.x}`}
+      } ${showSolution && partOfTheSolution ? singleCellSolutionPart : ''}`}
+      key={`${cell.coordinates.y}${cell.coordinates.x}`}
     />
   );
 };

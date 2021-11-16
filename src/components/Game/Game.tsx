@@ -10,7 +10,7 @@ interface GameProps {
 }
 
 export const Game = ({ initialDifficulty }: GameProps) => {
-  const { maze, generateNewMaze } = useMaze(initialDifficulty);
+  const { maze, generateNewMaze, solution } = useMaze(initialDifficulty);
   const [result, setResult] = useState<GameResult>();
 
   const finishGame = useCallback((result: GameResult) => setResult(result), []);
@@ -25,7 +25,12 @@ export const Game = ({ initialDifficulty }: GameProps) => {
 
   return (
     <>
-      <Board onGameFinish={finishGame} gameInProgress={!result} board={maze} />
+      <Board
+        solution={solution}
+        onGameFinish={finishGame}
+        gameInProgress={!result}
+        board={maze}
+      />
       {result && <Result onNewGame={startNewGame} result={result} />}
     </>
   );

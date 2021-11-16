@@ -1,4 +1,4 @@
-import { Coordinates, Maze } from '@/model/maze';
+import { Coordinates, Maze, MazeCell } from '@/model/maze';
 import { container } from '@/components/Board/Board.css';
 import { Cell } from '@/components/Cell';
 import { useEffect, useState } from 'react';
@@ -10,9 +10,15 @@ interface BoardProps {
   board: Maze;
   gameInProgress: boolean;
   onGameFinish: (result: GameResult) => void;
+  solution: Array<MazeCell>;
 }
 
-export const Board = ({ board, gameInProgress, onGameFinish }: BoardProps) => {
+export const Board = ({
+  board,
+  gameInProgress,
+  onGameFinish,
+  solution,
+}: BoardProps) => {
   const [playerPosition, setPlayerPosition] = useState<Coordinates>({
     x: 0,
     y: 0,
@@ -40,8 +46,7 @@ export const Board = ({ board, gameInProgress, onGameFinish }: BoardProps) => {
   };
 
   const handleGameFinish = (moves: number) => {
-    // TODO - add actual perfectMoves count
-    onGameFinish({ moves, perfectMoves: 0 });
+    onGameFinish({ moves, perfectMoves: solution.length });
   };
 
   return (
@@ -53,6 +58,8 @@ export const Board = ({ board, gameInProgress, onGameFinish }: BoardProps) => {
         {board.map((row, currentY) =>
           row.map((cell, currentX) => (
             <Cell
+              showSolution={true}
+              solution={solution}
               cell={cell}
               playerVisiting={
                 playerPosition.x === currentX && playerPosition.y === currentY
