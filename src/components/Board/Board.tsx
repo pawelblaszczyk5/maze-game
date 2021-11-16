@@ -1,7 +1,7 @@
 import { Coordinates, Maze } from '@/model/maze';
 import { container } from '@/components/Board/Board.css';
 import { Cell } from '@/components/Cell';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RelativeDirection } from '@/model/enums/relativeDirection';
 import { PlayerMoves } from '@/components/PlayerMoves';
 import { GameResult } from '@/model/gameResult';
@@ -17,6 +17,10 @@ export const Board = ({ board, gameInProgress, onGameFinish }: BoardProps) => {
     x: 0,
     y: 0,
   });
+
+  useEffect(() => {
+    setPlayerPosition({ x: 0, y: 0 });
+  }, [board]);
 
   const movePlayer = (direction: RelativeDirection) => {
     switch (direction) {

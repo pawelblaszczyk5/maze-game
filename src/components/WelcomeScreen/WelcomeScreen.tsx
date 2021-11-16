@@ -1,10 +1,9 @@
 import { Difficulty } from '@/model/enums/difficulty';
-import { Button } from '@/components/Button';
 import {
-  buttonsContainer,
   description,
   heading,
 } from '@/components/WelcomeScreen/WelcomeScreen.css';
+import { DifficultySelector } from '@/components/DifficultySelector';
 
 export interface WelcomeScreenProps {
   onGameStart: (gameDifficulty: Difficulty) => void;
@@ -18,10 +17,6 @@ export const WelcomeScreen = ({ onGameStart }: WelcomeScreenProps) => (
       arrows to move through the labyrinth and find the quickest path. There are
       3 difficulties for you to choose. Good luck!
     </p>
-    <div className={buttonsContainer}>
-      <Button onClick={() => onGameStart(Difficulty.EASY)}>Easy</Button>
-      <Button onClick={() => onGameStart(Difficulty.NORMAL)}>Normal</Button>
-      <Button onClick={() => onGameStart(Difficulty.HARD)}>Hard</Button>
-    </div>
+    <DifficultySelector onDifficultyChosen={onGameStart} />
   </>
 );

@@ -3,6 +3,7 @@ import { useMaze } from '@/hooks/useMaze';
 import { Board } from '@/components/Board';
 import { useCallback, useState } from 'react';
 import { GameResult } from '@/model/gameResult';
+import { Result } from '@/components/Result';
 
 interface GameProps {
   initialDifficulty: Difficulty;
@@ -23,6 +24,9 @@ export const Game = ({ initialDifficulty }: GameProps) => {
   );
 
   return (
-    <Board onGameFinish={finishGame} gameInProgress={!result} board={maze} />
+    <>
+      <Board onGameFinish={finishGame} gameInProgress={!result} board={maze} />
+      {result && <Result onNewGame={startNewGame} result={result} />}
+    </>
   );
 };

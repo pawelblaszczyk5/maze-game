@@ -12,8 +12,3 @@ export const heading = style({
   textAlign: 'center',
   color: vars.color.accent.warm.secondary,
 });
-
-export const buttonsContainer = style({
-  display: 'flex',
-  gap: vars.spacing.xlarge,
-});
