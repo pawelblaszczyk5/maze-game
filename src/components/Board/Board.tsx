@@ -4,12 +4,15 @@ import { Cell } from '@/components/Cell';
 import { useState } from 'react';
 import { RelativeDirection } from '@/model/enums/relativeDirection';
 import { PlayerMoves } from '@/components/PlayerMoves';
+import { GameResult } from '@/model/gameResult';
 
 interface BoardProps {
   board: Maze;
+  gameInProgress: boolean;
+  onGameFinish: (result: GameResult) => void;
 }
 
-export const Board = ({ board }: BoardProps) => {
+export const Board = ({ board, gameInProgress, onGameFinish }: BoardProps) => {
   const [playerPosition, setPlayerPosition] = useState<Coordinates>({
     x: 0,
     y: 0,
@@ -30,6 +33,11 @@ export const Board = ({ board }: BoardProps) => {
         setPlayerPosition(({ x, y }) => ({ x: x + 1, y }));
         break;
     }
+  };
+
+  const handleGameFinish = (moves: number) => {
+    // TODO - add actual perfectMoves count
+    onGameFinish({ moves, perfectMoves: 0 });
   };
 
   return (
@@ -54,11 +62,14 @@ export const Board = ({ board }: BoardProps) => {
           )),
         )}
       </div>
-      <PlayerMoves
-        onPlayerMove={movePlayer}
-        board={board}
-        playerPosition={playerPosition}
-      />
+      {gameInProgress && (
+        <PlayerMoves
+          onPlayerMove={movePlayer}
+          board={board}
+          playerPosition={playerPosition}
+          onGameFinish={handleGameFinish}
+        />
+      )}
     </>
   );
 };

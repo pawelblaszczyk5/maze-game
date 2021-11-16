@@ -1,5 +1,5 @@
 import { RelativeDirection } from '@/model/enums/relativeDirection';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Coordinates, Maze, MazeCell } from '@/model/maze';
 import { useWindowEventListener } from '@/hooks/useWindowEventListener';
 import { Move } from '@/model/move';
@@ -14,6 +14,7 @@ interface PlayerMovesProps {
   onPlayerMove: (direction: RelativeDirection) => void;
   board: Maze;
   playerPosition: Coordinates;
+  onGameFinish: (moves: number) => void;
 }
 
 const KEY_TO_WALL: Record<ArrowKey, keyof MazeCell['walls']> = {
@@ -41,6 +42,7 @@ export const PlayerMoves = ({
   onPlayerMove,
   board,
   playerPosition,
+  onGameFinish,
 }: PlayerMovesProps) => {
   const [moves, setMoves] = useState<Array<Move>>([]);
   const keyPressHandler = ({ key }: KeyboardEvent) => {
@@ -59,6 +61,15 @@ export const PlayerMoves = ({
       setMoves((moves) => [...moves, { key, valid: isValidMove }].slice(-5));
     }
   };
+
+  useEffect(() => {
+    if (
+      playerPosition.y === board.length - 1 &&
+      playerPosition.x === board.length - 1
+    ) {
+      onGameFinish(moves.length);
+    }
+  }, [board, moves, onGameFinish, playerPosition]);
 
   useWindowEventListener('keydown', keyPressHandler);
 

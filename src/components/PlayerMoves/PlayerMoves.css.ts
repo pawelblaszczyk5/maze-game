@@ -6,7 +6,7 @@ export const arrowTile = style([
   {
     padding: vars.spacing.small,
     fontSize: vars.fontSize.xlarge,
-    color: vars.color.feedback.success.main,
+    color: vars.color.feedback.info.main,
   },
 ]);
 
