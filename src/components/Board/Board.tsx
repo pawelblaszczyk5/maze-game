@@ -1,11 +1,12 @@
 import { Coordinates, Maze, MazeCell } from '@/model/maze';
 import { container } from '@/components/Board/Board.css';
 import { Cell } from '@/components/Cell';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { RelativeDirection } from '@/model/enums/relativeDirection';
 import { PlayerMoves } from '@/components/PlayerMoves';
 import { GameResult } from '@/model/gameResult';
 import { useCheat } from '@/hooks/useCheat';
+import { CHEAT_CODE } from '@/constants/cheatCode';
 
 interface BoardProps {
   board: Maze;
@@ -13,16 +14,6 @@ interface BoardProps {
   onGameFinish: (result: GameResult) => void;
   solution: Array<MazeCell>;
 }
-
-const CHEAT_CODE: Array<string> = [
-  'KeyC',
-  'KeyH',
-  'KeyE',
-  'KeyA',
-  'KeyT',
-  'KeyE',
-  'KeyR',
-];
 
 export const Board = ({
   board,
@@ -57,9 +48,10 @@ export const Board = ({
     }
   };
 
-  const handleGameFinish = (moves: number) => {
-    onGameFinish({ moves, perfectMoves: solution.length });
-  };
+  const handleGameFinish = useCallback(
+    (moves: number) => onGameFinish({ moves, perfectMoves: solution.length }),
+    [onGameFinish, solution],
+  );
 
   return (
     <>

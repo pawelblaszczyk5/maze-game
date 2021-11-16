@@ -1,6 +1,6 @@
 import { RelativeDirection } from '@/model/enums/relativeDirection';
 import { useEffect, useMemo, useState } from 'react';
-import { Coordinates, Maze, MazeCell } from '@/model/maze';
+import { Coordinates, Maze } from '@/model/maze';
 import { useWindowEventListener } from '@/hooks/useWindowEventListener';
 import { Move } from '@/model/move';
 import { ArrowKey } from '@/model/enums/arrowKey';
@@ -9,6 +9,7 @@ import {
   arrowTile,
   arrowTileInvalid,
 } from '@/components/PlayerMoves/PlayerMoves.css';
+import { KEY_TO_DIRECTION, KEY_TO_SYMBOL, KEY_TO_WALL } from '@/constants/key';
 
 interface PlayerMovesProps {
   onPlayerMove: (direction: RelativeDirection) => void;
@@ -16,27 +17,6 @@ interface PlayerMovesProps {
   playerPosition: Coordinates;
   onGameFinish: (moves: number) => void;
 }
-
-const KEY_TO_WALL: Record<ArrowKey, keyof MazeCell['walls']> = {
-  [ArrowKey.DOWN]: 'bottom',
-  [ArrowKey.UP]: 'top',
-  [ArrowKey.LEFT]: 'left',
-  [ArrowKey.RIGHT]: 'right',
-};
-
-const KEY_TO_DIRECTION: Record<ArrowKey, RelativeDirection> = {
-  [ArrowKey.DOWN]: RelativeDirection.DOWN,
-  [ArrowKey.UP]: RelativeDirection.UP,
-  [ArrowKey.LEFT]: RelativeDirection.LEFT,
-  [ArrowKey.RIGHT]: RelativeDirection.RIGHT,
-};
-
-const KEY_TO_SYMBOL: Record<ArrowKey, string> = {
-  [ArrowKey.DOWN]: '↓',
-  [ArrowKey.UP]: '↑',
-  [ArrowKey.LEFT]: '←',
-  [ArrowKey.RIGHT]: '→',
-};
 
 export const PlayerMoves = ({
   onPlayerMove,
