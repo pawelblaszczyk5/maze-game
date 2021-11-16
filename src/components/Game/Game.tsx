@@ -1,7 +1,7 @@
 import { Difficulty } from '@/model/enums/difficulty';
 import { useMaze } from '@/hooks/useMaze';
 import { Board } from '@/components/Board';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GameResult } from '@/model/gameResult';
 import { Result } from '@/components/Result';
 
@@ -17,11 +17,14 @@ export const Game = ({ initialDifficulty }: GameProps) => {
 
   const startNewGame = useCallback(
     (difficulty: Difficulty) => {
-      setResult(undefined);
       generateNewMaze(difficulty);
     },
     [generateNewMaze],
   );
+
+  useEffect(() => {
+    setResult(undefined);
+  }, [maze]);
 
   return (
     <>
