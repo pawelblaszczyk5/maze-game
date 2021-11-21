@@ -40,6 +40,7 @@ export const Cell = ({
   return (
     <div
       style={cellStyles}
+      data-testid={`cell_${cell.coordinates.y}_${cell.coordinates.x}`}
       className={`${singleCell} ${mazeEnd ? singleCellMazeEnd : ''} ${
         playerVisiting ? singleCellCurrentlyVisited : ''
       } ${showSolution && partOfTheSolution ? singleCellSolutionPart : ''}`}

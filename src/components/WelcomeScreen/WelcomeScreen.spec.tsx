@@ -1,12 +1,9 @@
-import {
-  WelcomeScreen,
-  WelcomeScreenProps,
-} from '@/components/WelcomeScreen/WelcomeScreen';
+import { WelcomeScreen } from '@/components/WelcomeScreen/';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Difficulty } from '@/model/enums/difficulty';
 
-const setup = (onGameStart: WelcomeScreenProps['onGameStart'] = jest.fn()) => {
+const setup = (onGameStart: () => void = jest.fn()) => {
   render(<WelcomeScreen onGameStart={onGameStart} />);
 };
 
