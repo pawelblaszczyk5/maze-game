@@ -27,7 +27,7 @@ export const PlayerMoves = ({
   const [allMoves, setAllMoves] = useState<Array<Move>>([]);
   const movesToDisplay = useMemo(() => allMoves.slice(-5), [allMoves]);
 
-  const keyPressHandler = ({ key }: KeyboardEvent) => {
+  const keyDownHandler = ({ key }: KeyboardEvent) => {
     if (
       key === ArrowKey.UP ||
       key === ArrowKey.DOWN ||
@@ -53,7 +53,7 @@ export const PlayerMoves = ({
     }
   }, [board, allMoves, onGameFinish, playerPosition]);
 
-  useWindowEventListener('keydown', keyPressHandler);
+  useWindowEventListener('keydown', keyDownHandler);
 
   return (
     <div className={arrowsContainer}>
