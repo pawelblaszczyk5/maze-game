@@ -6,7 +6,7 @@ import { mainContainer, screenDisclaimer } from '@/App.css';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export const App = () => {
-  const [isGameInProgress, setIsGameInProgress] = useState(true);
+  const [isGameInProgress, setIsGameInProgress] = useState(false);
   const [initialDifficulty, setInitialDifficulty] = useState<Difficulty>();
   const isScreenLargeEnough = useMediaQuery(
     'screen and (min-width: 1024px) and (min-height: 768px)',
