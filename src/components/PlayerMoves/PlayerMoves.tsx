@@ -48,9 +48,8 @@ export const PlayerMoves = ({
     if (
       playerPosition.y === board.length - 1 &&
       playerPosition.x === board.length - 1
-    ) {
+    )
       onGameFinish(allMoves.length);
-    }
   }, [board, allMoves, onGameFinish, playerPosition]);
 
   useWindowEventListener('keydown', keyDownHandler);

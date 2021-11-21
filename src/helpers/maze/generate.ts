@@ -21,7 +21,7 @@ export const generateMaze = ({ width, height }: Size): Maze => {
     }
 
     cellStack.pop();
-    cellStack[cellStack.length - 1] &&
+    if (cellStack[cellStack.length - 1])
       backTrack(cellStack[cellStack.length - 1]);
   };
 
@@ -49,13 +49,13 @@ const getRandomUnvisitedNeighbour = (
 ): MazeCell | undefined => {
   const neighbours: Array<MazeCell> = [];
 
-  maze[y + 1]?.[x]?.visitedDuringGenerating === false &&
+  if (maze[y + 1]?.[x]?.visitedDuringGenerating === false)
     neighbours.push(maze[y + 1][x]);
-  maze[y - 1]?.[x]?.visitedDuringGenerating === false &&
+  if (maze[y - 1]?.[x]?.visitedDuringGenerating === false)
     neighbours.push(maze[y - 1][x]);
-  maze[y]?.[x + 1]?.visitedDuringGenerating === false &&
+  if (maze[y]?.[x + 1]?.visitedDuringGenerating === false)
     neighbours.push(maze[y][x + 1]);
-  maze[y]?.[x - 1]?.visitedDuringGenerating === false &&
+  if (maze[y]?.[x - 1]?.visitedDuringGenerating === false)
     neighbours.push(maze[y][x - 1]);
 
   return neighbours[Math.floor(Math.random() * neighbours.length)];
