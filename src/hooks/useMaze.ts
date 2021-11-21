@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import { generateMaze } from '@/helpers/maze';
+import { generateMaze, solveMaze } from '@/helpers/maze';
 import { Difficulty } from '@/model/enums/difficulty';
 import { Size } from '@/model/size';
-import { solveMaze } from '@/helpers/maze/solve';
 
 const MAZE_SIZE: Record<Difficulty, Size> = {
   [Difficulty.EASY]: { width: 15, height: 15 },
