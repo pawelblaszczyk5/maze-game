@@ -2,11 +2,17 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { useCheat } from '@/hooks/useCheat';
 import userEvent from '@testing-library/user-event';
 
-const CHEAT_CODE = ['KeyC', 'KeyA'];
+const BASE_CHEAT_CODE = ['KeyC', 'KeyA'];
+const SECOND_CHEAT_CODE = ['KeyC', 'KeyB'];
+
+const setup = (cheatCode = BASE_CHEAT_CODE) =>
+  renderHook((cheatCode: Array<string>) => useCheat(cheatCode), {
+    initialProps: cheatCode,
+  });
 
 describe('useCheat hook tests', () => {
   test('should let user enter cheat code', () => {
-    const { result } = renderHook(() => useCheat(CHEAT_CODE));
+    const { result } = setup();
 
     expect(result.current).toEqual(false);
     act(() => {
@@ -18,7 +24,7 @@ describe('useCheat hook tests', () => {
 
   test('entered letters should timeout after a while', () => {
     jest.useFakeTimers();
-    const { result } = renderHook(() => useCheat(CHEAT_CODE));
+    const { result } = setup();
 
     act(() => {
       userEvent.keyboard('c');
@@ -33,12 +39,37 @@ describe('useCheat hook tests', () => {
   });
 
   test('should work with multiple enters of first letter', () => {
-    const { result } = renderHook(() => useCheat(CHEAT_CODE));
+    const { result } = setup();
 
     act(() => {
       userEvent.keyboard('cccccccccca');
     });
 
     expect(result.current).toEqual(true);
+  });
+
+  test('should work with dynamically changed codes', () => {
+    const { result, rerender } = setup();
+
+    rerender(SECOND_CHEAT_CODE);
+    act(() => {
+      userEvent.keyboard('cb');
+    });
+
+    expect(result.current).toEqual(true);
+  });
+
+  test('dynamically changing code should reset current status', () => {
+    const { result, rerender } = setup();
+
+    act(() => {
+      userEvent.keyboard('c');
+    });
+    rerender(SECOND_CHEAT_CODE);
+    act(() => {
+      userEvent.keyboard('b');
+    });
+
+    expect(result.current).toEqual(false);
   });
 });
