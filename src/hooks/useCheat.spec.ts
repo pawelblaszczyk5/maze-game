@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useCheat } from '@/hooks/useCheat';
+import { useCheat } from '@/hooks/';
 import userEvent from '@testing-library/user-event';
 
 const BASE_CHEAT_CODE = ['KeyC', 'KeyA'];

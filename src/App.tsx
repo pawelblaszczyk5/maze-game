@@ -3,7 +3,7 @@ import { WelcomeScreen } from '@/components/WelcomeScreen';
 import { Difficulty } from '@/model/enums/difficulty';
 import { Game } from '@/components/Game';
 import { mainContainer, screenDisclaimer } from '@/App.css';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/';
 
 export const App = () => {
   const [isGameInProgress, setIsGameInProgress] = useState(false);

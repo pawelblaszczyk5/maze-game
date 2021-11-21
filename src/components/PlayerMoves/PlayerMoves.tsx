@@ -1,7 +1,7 @@
 import { RelativeDirection } from '@/model/enums/relativeDirection';
 import { useEffect, useMemo, useState } from 'react';
 import { Coordinates, Maze } from '@/model/maze';
-import { useWindowEventListener } from '@/hooks/useWindowEventListener';
+import { useWindowEventListener } from '@/hooks/';
 import { Move } from '@/model/move';
 import { ArrowKey } from '@/model/enums/arrowKey';
 import {

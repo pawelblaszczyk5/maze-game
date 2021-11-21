@@ -1,5 +1,5 @@
 import { Difficulty } from '@/model/enums/difficulty';
-import { useMaze } from '@/hooks/useMaze';
+import { useMaze } from '@/hooks/';
 import { Board } from '@/components/Board';
 import { useCallback, useEffect, useState } from 'react';
 import { GameResult } from '@/model/gameResult';

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useWindowEventListener } from '@/hooks/useWindowEventListener';
+import { useWindowEventListener } from '@/hooks/';
 
 export const useCheat = (cheatCode: Array<string>) => {
   const [cheating, setCheating] = useState(false);

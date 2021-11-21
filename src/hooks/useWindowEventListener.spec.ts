@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useWindowEventListener } from '@/hooks/useWindowEventListener';
+import { useWindowEventListener } from '@/hooks/';
 import userEvent from '@testing-library/user-event';
 
 interface HookRenderProps {

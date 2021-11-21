@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { RelativeDirection } from '@/model/enums/relativeDirection';
 import { PlayerMoves } from '@/components/PlayerMoves';
 import { GameResult } from '@/model/gameResult';
-import { useCheat } from '@/hooks/useCheat';
+import { useCheat } from '@/hooks/';
 import { CHEAT_CODE } from '@/constants/cheatCode';
 
 interface BoardProps {
