@@ -4,7 +4,7 @@ import { MazeCell } from '@/model/maze';
 
 describe('Maze utils tests', () => {
   test('it should generate solvable maze', () => {
-    const maze = generateMaze({ width: 5, height: 5 });
+    const maze = generateMaze({ width: 20, height: 20 });
     const solution = solveMaze(maze);
 
     expect(maze).toBeDefined();
