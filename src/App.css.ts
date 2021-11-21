@@ -9,3 +9,9 @@ export const mainContainer = style({
   maxWidth: '1200px',
   margin: '0 auto',
 });
+
+export const screenDisclaimer = style({
+  textAlign: 'center',
+  fontSize: vars.fontSize.xlarge,
+  marginTop: vars.spacing.xxlarge,
+});
